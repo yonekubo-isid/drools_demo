@@ -1,0 +1,25 @@
+package drools_demo;
+
+/* Rule-1:事業所最寄り駅より用務先最寄り駅までの距離が片道100kmを超えるものを出張とする。 */
+rule 'Domestic travel - Distance'
+    when
+        $t: TravelExpense(distance < 100)
+    then
+        insert(new PolicyViolation("distance"));
+end
+
+/* Rule-2:乗車区間50㎞以下の新幹線、特急および急行利用は認めない。 */
+rule 'Transportation - Limited Express And Bullet Train'
+    when
+        $t: TransportationExpense(distance <= 50, transportation == Transportation.LimitedExpress || transportation == Transportation.BulletTrain)
+    then
+        insert(new PolicyViolation("transportation"));
+end
+
+/* Rule-3:会議費交際費精算において、一人当たりの単価が5001円以上の場合は交際費。 */
+rule 'Social expense - Conference Expense Limit'
+    when
+        $s: SocialExpense((totalAmount / numberOfPeople) >= 5001, usage != "交際費")
+    then
+        insert(new PolicyViolation("conference"));
+end

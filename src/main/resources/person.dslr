@@ -1,0 +1,20 @@
+package drools_demo;
+
+/* Using business friendly DSL */
+rule 'Screen managers and hire'
+    when
+        There is someone
+            - at least 30 years old
+            - works as Manager
+    then
+        hire him or her
+end
+
+/* Equivalent DRL is below:
+rule 'Person DSL'
+    when
+        $p: Person(age>=30, jobTitle="Manager")
+    then
+        $p.hire();
+end
+*/

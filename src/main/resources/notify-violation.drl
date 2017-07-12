@@ -1,0 +1,8 @@
+package drools_demo;
+
+rule 'Policy violation'
+    when
+        $pv: PolicyViolation()
+    then
+        channels["policy-violation"].send($pv);
+end

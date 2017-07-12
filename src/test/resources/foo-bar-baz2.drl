@@ -1,0 +1,9 @@
+package drools_demo;
+
+/* 親クラス(抽象)を使用した条件指定に対して、具象クラスもマッチする */
+rule 'Foo2'
+    when
+        $f: Foo(number > 20)
+    then
+        $f.setFired(true);
+end
